@@ -2,4 +2,5 @@
 *.pyc
 __pycache__/
 *.png
-*.jpeg
+*.jpg
+.env
