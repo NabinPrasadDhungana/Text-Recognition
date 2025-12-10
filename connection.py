@@ -9,9 +9,7 @@ def get_connection():
             host="localhost",
             port="5432"
         )
-        if __name__=='__main__':
-            print("Connection to the database was successful.")
-            print(connection)
         return connection
     except Exception as e:
-        print(str(e))
+        print(f"Error connecting to database: {e}")
+        return None

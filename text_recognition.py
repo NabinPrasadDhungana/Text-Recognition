@@ -24,13 +24,24 @@ for line in multi_line_data:
 print(data)
 
 conn = get_connection()
-cur = conn.cursor()
 
-values = ()
-
-if not data:
-    print("There is no data!")
-
+if not conn:
+    print("Database connection error!")
 else:
-    print(data.values())
-    print(cur)
+    try:
+        with conn:
+            with conn.cursor() as cur:
+
+                columns = ['first_name', 'middle_name', 'last_name', 'age', 'college', 'program', 'semester']
+                values = [data.get(col.replace('_', ' ').title(), '') for col in columns]
+                query = "INSERT INTO form ({}) values({})".format(
+                    ', '.join(columns),
+                    ', '.join(['%s'] * len(values))
+                )
+
+                cur.execute(query, values)
+                print("Data inserted successfully.")
+    except Exception as e:
+        print(f"Error inserting data: {e}")
+    finally:
+        conn.close()
