@@ -11,6 +11,7 @@ def detect_field_boxes(binary_img, min_area=1000, max_area_ratio=0.9, debug=Fals
     contours, _ = cv2.findContours(binary_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     h_img, w_img = binary_img.shape[:2]
     boxes = []
+    print(len(contours))
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area < min_area:

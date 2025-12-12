@@ -26,6 +26,8 @@ def process_image(path, form_type=None, debug=False):
             "text": text.strip()
         })
 
+    print([r['box'] for r in results])
+
     # Assemble a simple key-value map: field_0..n
     data = {f"field_{r['box_index']}": r['text'] for r in results}
 
@@ -35,9 +37,10 @@ def process_image(path, form_type=None, debug=False):
     print(f"Saved {len(results)} fields to DB.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Scan form image, extract fields, save to Postgres.")
-    parser.add_argument("--image", required=True, help="Path to input image")
-    parser.add_argument("--form-type", default=None, help="Optional form type")
-    parser.add_argument("--debug", action="store_true", help="Show debug output (prints boxes)")
-    args = parser.parse_args()
-    process_image(args.image, form_type=args.form_type, debug=args.debug)
+    # parser = argparse.ArgumentParser(description="Scan form image, extract fields, save to Postgres.")
+    # parser.add_argument("--image", required=True, help="Path to input image")
+    # parser.add_argument("--form-type", default=None, help="Optional form type")
+    # parser.add_argument("--debug", action="store_true", help="Show debug output (prints boxes)")
+    # args = parser.parse_args()
+    # process_image(args.image, form_type=args.form_type, debug=args.debug)
+    process_image('image_copy.png', form_type=None, debug=False)

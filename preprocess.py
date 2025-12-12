@@ -19,11 +19,10 @@ def preprocess_image(path, max_dim=1600):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Smooth then adaptive threshold to handle lighting changes
     blur = cv2.GaussianBlur(gray, (5,5), 0)
-    th = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                               cv2.THRESH_BINARY_INV, 25, 10)
+    th = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 1)
     # Morph close to join small gaps in boxes/lines
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9,3))
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 5))
     closed = cv2.morphologyEx(th, cv2.MORPH_CLOSE, kernel)
     return img, closed
 
-print(preprocess_image('form.png'))
+# print(preprocess_image('form.png'))
